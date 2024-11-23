@@ -4,10 +4,12 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
+@NoArgsConstructor
 @AllArgsConstructor
 public class Product {
 
@@ -79,6 +81,4 @@ public class Product {
         this.orders = orders;
     }
 
-    public Product(String testProduct, String descriptionOfTestProduct, BigDecimal bigDecimal, int i) {
-    }
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${product.id == null ? 'Create New Product' : 'Edit Product'}"></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h2 th:text="${product.id == null ? 'Create New Product' : 'Edit Product'}"></h2>
+        </div>
+        <div class="card-body">
+            <!-- 상품 등록/수정 폼 -->
+            <form th:action="@{${product.id != null} ? '/products/edit/' + ${product.id} : '/products'}" th:object="${product}" method="post">
+                <!-- 상품명 입력 -->
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" th:field="*{name}" id="name" class="form-control" placeholder="Enter product name" required />
+                </div>
+
+                <!-- 상품 설명 입력 -->
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <input type="text" th:field="*{description}" id="description" class="form-control" placeholder="Enter product description" required />
+                </div>
+
+                <!-- 상품 가격 입력 -->
+                <div class="form-group">
+                    <label for="bigDecimal">Price:</label>
+                    <input type="text" th:field="*{bigDecimal}" id="bigDecimal" class="form-control" placeholder="Enter product price" required />
+                </div>
+
+                <!-- 상품 재고 수량 입력 -->
+                <div class="form-group">
+                    <label for="stockQuantity">Stock Quantity:</label>
+                    <input type="number" th:field="*{stockQuantity}" id="stockQuantity" class="form-control" placeholder="Enter stock quantity" required />
+                </div>
+
+                <!-- 제출 버튼 -->
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="card-footer">
+            <a href="/products" class="btn btn-secondary">Back to Product List</a>
+        </div>
+    </div>
+</div>
+
+<!-- 필요한 스크립트 추가 (부트스트랩과 JQuery) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

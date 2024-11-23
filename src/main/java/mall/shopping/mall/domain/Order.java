@@ -20,9 +20,9 @@ public class Order {
 
     @ManyToMany
     @JoinTable(
-            name = "order_product",  // 중간 테이블 이름
-            joinColumns = @JoinColumn(name="order_id"), // 'Order' 엔티티의 외래키
-            inverseJoinColumns = @JoinColumn(name="product_id") // 'Product' 엔티티의 외래키
+            name = "order_product", // 중간 테이블 이름
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<Product> products;
 

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renew</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@500;600&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* 기본 스타일 */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f1f1; /* 밝은 회색 배경 */
+            color: #333;
+        }
+
+        .navbar {
+            background-color: #FFFFFF; /* 흰색 */
+        }
+
+        .navbar-brand {
+            color: black !important;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .navbar-nav .nav-link {
+            color: black !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #aaa !important; /* 회색 톤으로 변경 */
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 500px; /* 슬라이더 높이 */
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+
+        .hero .hero-images {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            flex-shrink: 0; /* 이미지가 줄어들지 않도록 */
+        }
+
+        .hero .btn-primary {
+            background-color: #777; /* 회색 버튼 */
+            border-color: #777;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 20px;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .hero .btn-primary:hover {
+            background-color: #666; /* 버튼 호버 시 어두운 회색 */
+            border-color: #666;
+        }
+
+        /* 왼쪽/오른쪽 버튼 스타일 */
+        .hero .prev, .hero .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            padding: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero .prev {
+            left: 20px;
+        }
+
+        .hero .next {
+            right: 20px;
+        }
+
+        .hero .prev:hover, .hero .next:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* 카테고리 버튼 */
+        .category-buttons button {
+            font-size: 1.1rem;
+            margin: 0 15px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background-color: #777; /* 회색 버튼 */
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .category-buttons button:hover {
+            background-color: #666; /* 버튼 호버 시 어두운 회색 */
+        }
+
+        /* 푸터 스타일 */
+        .footer {
+            background-color: #FFFFFF; /* 다크 회색 푸터 */
+            color: black;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .footer a {
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #fff;
+        }
+.product-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 15px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 250px; /* 카드의 너비를 줄임 */
+    height: 350px; /* 카드의 높이를 줄임 */
+    margin: 10px; /* 카드 간 간격을 줄임 */
+}
+
+.product-card img {
+    width: 100%;
+    height: 180px; /* 이미지 높이를 줄임 */
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+}
+
+.product-card .card-body {
+    padding: 10px; /* 카드 내용의 패딩을 줄임 */
+}
+
+.product-card .card-title {
+    font-size: 1rem; /* 제목 크기 줄임 */
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.product-card .card-text {
+    font-size: 0.9rem; /* 설명 글자 크기를 줄임 */
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.product-card .card-text strong {
+    font-size: 1rem; /* 가격 크기를 약간 줄임 */
+    color: #333;
+}
+
+.product-card .btn {
+    background-color: #777;
+    border-color: #777;
+    padding: 8px 15px; /* 버튼 크기를 줄임 */
+    font-size: 1rem; /* 버튼 글씨 크기 줄임 */
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.product-card .btn:hover {
+    background-color: #666;
+    border-color: #666;
+}
+
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">Renew</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="/cart">Cart</a></li>
+                <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-images" id="heroImages">
+        <img src="/homepage.jpg" alt="Image 1">
+        <img src="/homepage2.jpg" alt="Image 2">
+        <img src="/homepage3.jpg" alt="Image 3">
+    </div>
+    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+    <a href="/products" class="btn btn-primary">Shop Now</a>
+</section>
+
+<!-- 카테고리별 상품 -->
+<div class="container category-container">
+    <h2>상품 카테고리</h2>
+    <div class="category-buttons">
+        <button onclick="filterProducts('shoes')">신발</button>
+        <button onclick="filterProducts('clothes')">옷</button>
+        <button onclick="filterProducts('all')">모두 보기</button>
+    </div>
+
+    <div class="product-container" id="productContainer">
+        <!-- 신발 상품 -->
+        <div class="product-card" data-category="shoes">
+            <img src="https://via.placeholder.com/300x250" alt="Product Image">
+            <div class="card-body">
+                <h5 class="card-title">Stylish Running Shoes</h5>
+                <p class="card-text">Comfortable and durable shoes for all your running needs.</p>
+                <p class="card-text"><strong>$99.99</strong></p>
+                <a href="/products/1" class="btn btn-primary">View Product</a>
+            </div>
+        </div>
+
+        <!-- 옷 상품 -->
+        <div class="product-card" data-category="clothes">
+            <img src="https://via.placeholder.com/300x250" alt="Product Image">
+            <div class="card-body">
+                <h5 class="card-title">Comfortable Hoodie</h5>
+                <p class="card-text">Soft and cozy hoodie perfect for any season.</p>
+                <p class="card-text"><strong>$49.99</strong></p>
+                <a href="/products/3" class="btn btn-primary">View Product</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; 2024 Renew. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a></p>
+</footer>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<script>
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.hero-images img');
+
+    function moveSlide(direction) {
+        currentIndex += direction;
+        if (currentIndex < 0) {
+            currentIndex = images.length - 1; // 끝에서 첫 번째 이미지로 돌아감
+        } else if (currentIndex >= images.length) {
+            currentIndex = 0; // 첫 번째 이미지로 돌아감
+        }
+        // 각 이미지를 하나씩 보이게 슬라이드
+        document.getElementById('heroImages').style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    // 카테고리별 상품 필터링
+    function filterProducts(category) {
+        const products = document.querySelectorAll('.product-card');
+        products.forEach(product => {
+            if (category === 'all') {
+                product.style.display = 'block';
+            } else {
+                if (product.getAttribute('data-category') === category) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
