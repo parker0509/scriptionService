@@ -1,4 +1,4 @@
-package mall.shopping.mall.repository;
+package mall.shopping.mall.repository.user;
 
 import mall.shopping.mall.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
