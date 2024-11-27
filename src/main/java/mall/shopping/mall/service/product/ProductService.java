@@ -26,6 +26,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+
     //ReadID
     public Optional<Product> getProductById(Long id){
         return productRepository.findById(id);
@@ -40,8 +41,9 @@ public class ProductService {
             Product product = optionalProduct.get();
             product.setName(productDetails.getName());
             product.setDescription(productDetails.getDescription());
-            product.setBigDecimal(productDetails.getBigDecimal());
+            product.setPrice(productDetails.getPrice());
             product.setStockQuantity(productDetails.getStockQuantity());
+            product.setImageUrl(productDetails.getImageUrl());
             productRepository.save(product);
         }
 

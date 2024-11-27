@@ -27,14 +27,20 @@
 
                 <!-- 상품 가격 입력 -->
                 <div class="form-group">
-                    <label for="bigDecimal">Price:</label>
-                    <input type="text" th:field="*{bigDecimal}" id="bigDecimal" class="form-control" placeholder="Enter product price" required />
+                    <label for="price">Price:</label>
+                    <input type="number" th:field="*{price}" id="price" class="form-control" placeholder="Enter product price" required />
                 </div>
 
                 <!-- 상품 재고 수량 입력 -->
                 <div class="form-group">
                     <label for="stockQuantity">Stock Quantity:</label>
                     <input type="number" th:field="*{stockQuantity}" id="stockQuantity" class="form-control" placeholder="Enter stock quantity" required />
+                </div>
+
+                <!-- 이미지 URL 입력 -->
+                <div class="form-group">
+                    <label for="imageUrl">Image URL:</label>
+                    <input type="text" th:field="*{imageUrl}" id="imageUrl" class="form-control" placeholder="Enter product image URL" />
                 </div>
 
                 <!-- 제출 버튼 -->

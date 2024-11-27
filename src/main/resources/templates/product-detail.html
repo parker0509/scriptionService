@@ -11,12 +11,18 @@
             <h2 th:text="${product.name}"></h2>
         </div>
         <div class="card-body">
+
+            <!-- 이미지 설명 및 이미지 사진 출력  -->
+            <img th:src ="@{${product.imageUrl}}" alt="Product Image" class="img-field"/>
+
             <p th:text="${product.description}"></p>
-            <p><strong>Price:</strong> <span th:text="${product.bigDecimal}"></span></p>
+            <p><strong>Price:</strong> <span th:text="${product.price}"></span></p>
             <p><strong>Stock:</strong> <span th:text="${product.stockQuantity}"></span></p>
         </div>
         <div class="card-footer">
-            <a href="/products" class="btn btn-primary">Back to List</a>
+            <a href="/buy" class ="btn btn-primary">바로 구매</a>
+            <a href="/cart" class ="btn btn-primary">장바 구니</a>
+            <a href="/products" class="btn btn-primary">Back</a>
         </div>
     </div>
 </div>

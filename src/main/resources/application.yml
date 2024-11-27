@@ -58,14 +58,15 @@ spring:
     username: root
     password: qwer1234
   jpa:
+    hibernate:
+      ddl-auto: update
+      #ddl-auto: create
+      show-sql: true  # Hibernate SQL 출력 활성화
+      format_sql: true  # SQL 쿼리 형식화
+      use_sql_comments: true  # SQL 쿼리에 주석 추가 (테이블, 컬럼 등)
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-        format_sql: true
-        use_sql_comments: true
     generate-ddl: false
-    hibernate:
-      ddl-auto: update  # ?????? ???? ???? ????
-      #ddl-auto: create
-      show-sql: true
     database-platform: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false  # JPA 트랜잭션을 뷰 렌더링 중에 열지 않도록 설정

@@ -2,6 +2,7 @@ package mall.shopping.mall.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
@@ -9,8 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class Product {
 
 
@@ -25,60 +25,19 @@ public class Product {
     private String description;
 
     // 상품 가격
-    private BigDecimal bigDecimal;
+    private int price;
 
     // 재고 수량
     private int stockQuantity;
 
+    //카테고리
+    private String category;
+
+    private String imageUrl;
+
     @ManyToMany(mappedBy = "products")  // 매핑된 필드 이름을 사용하여 관계 반영
     private List<Order> orders;  // 여러 주문에 포함될 수 있음
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getBigDecimal() {
-        return bigDecimal;
-    }
-
-    public void setBigDecimal(BigDecimal bigDecimal) {
-        this.bigDecimal = bigDecimal;
-    }
-
-    public int getStockQuantity() {
-        return stockQuantity;
-    }
-
-    public void setStockQuantity(int stockQuantity) {
-        this.stockQuantity = stockQuantity;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
 
 }
