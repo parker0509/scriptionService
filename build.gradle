@@ -53,3 +53,7 @@ task copyPrivate(type: Copy) {
 		into 'src/main/resources'
 	}
 }
+
+tasks.withType(JavaCompile) {
+	options.compilerArgs << "-parameters"
+}

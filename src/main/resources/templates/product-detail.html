@@ -12,20 +12,37 @@
         </div>
         <div class="card-body">
 
-            <!-- 이미지 설명 및 이미지 사진 출력  -->
-            <img th:src ="@{${product.imageUrl}}" alt="Product Image" class="img-field"/>
+            <!-- 이미지 설명 및 이미지 사진 출력 -->
+            <img th:src="@{${product.imageUrl}}" alt="Product Image" class="img-fluid"/>
 
             <p th:text="${product.description}"></p>
             <p><strong>Price:</strong> <span th:text="${product.price}"></span></p>
             <p><strong>Stock:</strong> <span th:text="${product.stockQuantity}"></span></p>
         </div>
         <div class="card-footer">
-            <a href="/buy" class ="btn btn-primary">바로 구매</a>
-            <a href="/cart" class ="btn btn-primary">장바 구니</a>
+            <a href="/order" class="btn btn-primary">바로 구매</a>
+            <form th:action="@{/cart/add/{id}(id=${product.id})}" method="POST">
+                <input type="number" name="quantity" value="1" min="1" />
+                <button type="submit" class="btn btn-primary">장바구니에 추가</button>
+            </form>
             <a href="/products" class="btn btn-primary">Back</a>
         </div>
+
+        <!-- 장바구니 추가 버튼 -->
+        <div class="cart-product">
+            <a href="/cart" class="btn btn-primary" onclick="submitCartForm()">장바구니 보기</a>
+        </div>
+
     </div>
 </div>
+
+<script>
+    function submitCartForm() {
+        // 폼 제출
+        document.getElementById("cartForm").submit();
+    }
+</script>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

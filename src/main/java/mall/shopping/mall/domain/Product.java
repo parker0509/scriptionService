@@ -39,5 +39,12 @@ public class Product {
     private List<Order> orders;  // 여러 주문에 포함될 수 있음
 
 
+    public Product(Long id, String name, int price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
 
+    public Product() {
+    }
 }

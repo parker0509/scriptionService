@@ -1,74 +1,28 @@
 package mall.shopping.mall.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-
-import java.math.BigDecimal;
+import lombok.Data;
 
 @Entity
+@Data
 public class CartItem {
 
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
-    @ManyToOne
-    @JoinColumn(name ="cart_id") // 장바구니랑 연결
-    private Cart cart;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cart_id")
+    private Cart cart; // 장바구니에 속하는 항목
 
-    @ManyToOne
-    @JoinColumn(name = "product_id") // 상품이랑 연결
-    private Product product;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product; // 상품 정보
 
-    private int quantity; // 수량
+    private int quantity = 1; // 상품 수량, 기본값 1
 
-    private BigDecimal totalPrice; // 총 가격
-
-    public CartItem(Cart cart, Product product, int quantity, BigDecimal totalPrice) {
-        this.cart = cart;
-        this.product = product;
-        this.quantity = quantity;
-        this.totalPrice = totalPrice;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
+    // 카트 항목의 총 금액 계산
+    public int getTotalPrice() {
+        return product.getPrice() * quantity;
     }
 }

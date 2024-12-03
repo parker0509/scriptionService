@@ -150,9 +150,10 @@
     border-radius: 10px;
     overflow: hidden;
     width: 250px; /* 카드의 너비 */
-    height: 350px; /* 카드의 높이 */
+    height: 500px; /* 카드의 높이 */
     margin: 5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer; /* 추가된 부분: 마우스 커서를 포인터로 변경 */
 }
 
 .product-container {
@@ -165,7 +166,7 @@
 
 .product-card img {
     width: 100%;
-    height: 180px; /* 이미지 높이를 줄임 */
+    height: 300px; /* 이미지 높이를 줄임 */
     object-fit: cover;
     border-bottom: 1px solid #ddd;
 }
@@ -198,12 +199,14 @@
     font-size: 1rem; /* 버튼 글씨 크기 줄임 */
     border-radius: 20px;
     transition: background-color 0.3s ease;
+    display: none;
 }
 
 .product-card .btn:hover {
     background-color: #666;
     border-color: #666;
 }
+
 
     </style>
 </head>
@@ -212,7 +215,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-        <a class="navbar-brand" href="/">Renew</a>
+        <a class="navbar-brand" href="/">Taily</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -251,7 +254,7 @@
             <div class="card-body">
                 <h5 class="card-title" th:text="${product.name}">Product Name</h5>
                 <p class="card-text" th:text="${product.description}">Product Description</p>
-                <p class="card-text"><strong th:text="${product.price}+ ' 햣원'">Price</strong></p>
+                <p class="card-text"><strong th:text="${product.price}+ ' 원'">Price</strong></p>
                 <a th:href="@{/products/{id}(id=${product.id})}" class="btn btn-primary">View Product</a>
             </div>
         </div>
@@ -308,6 +311,18 @@
             }
         });
     }
+
+
+        // 상품 카드 클릭 시 상세 페이지로 이동
+    const productCards = document.querySelectorAll('.product-card');
+
+    productCards.forEach(card => {
+        card.addEventListener('click', () => {
+            // 각 카드에 있는 상품 상세 페이지 링크를 찾아서 해당 링크로 이동
+            const productLink = card.querySelector('a').getAttribute('href');
+            window.location.href = productLink; // 해당 상품의 상세 페이지로 이동
+        });
+    });
 </script>
 
 </body>

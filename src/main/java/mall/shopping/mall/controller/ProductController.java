@@ -2,7 +2,10 @@ package mall.shopping.mall.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpSession;
+import mall.shopping.mall.domain.Cart;
 import mall.shopping.mall.domain.Product;
+import mall.shopping.mall.service.cart.CartService;
 import mall.shopping.mall.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,8 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private CartService cartService;
 
     @GetMapping
     @Operation(summary = "홈페이지의 상품 목록 조회",description = "메인 홈에서 상품을 조회하는 기능")
@@ -38,7 +43,7 @@ public class ProductController {
         return "product-list";
     }
 
-    // 상품 상세보기 페이지
+    // 상품 상세 보기 페이지
     @GetMapping("/{id}")
     @Operation(summary = "상품 상세 정보를 조회")
     public String getProduct(@PathVariable("id") Long id, Model model) {
@@ -86,6 +91,7 @@ public class ProductController {
     public String updateProduct(@PathVariable("id") Long id, @ModelAttribute Product product) {
 
         productService.updateProduct(id, product);
+        System.out.println("상품이 수정되었습니다.");
         return "redirect:/products";
     }
 
@@ -96,4 +102,5 @@ public class ProductController {
         productService.deleteProduct(id);
         return "redirect:/products";
     }
+
 }
