@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결제 시스템</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .description {
+            font-size: 16px;
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        #paymentBtn {
+            background-color: #2d87f0;
+            color: white;
+            font-size: 18px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #paymentBtn:hover {
+            background-color: #1f70c3;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>꽃가게 구독 서비스</h1>
+    <p class="description">
+        이제 꽃을 구독하고 집에서도 손쉽게 꽃을 받으세요. 매달 새로운 꽃을 만나보실 수 있습니다!
+    </p>
+    <button id="paymentBtn">구독 결제하기</button>
+    <div class="footer">
+        <p>© 2025 꽃가게 구독 서비스</p>
+    </div>
+</div>
+
+<!-- 먼저 jQuery 로드 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 그 다음에 아임포트 스크립트 로드 -->
+<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.0.js"></script>
+
+<script type="text/javascript">
+    document.getElementById('paymentBtn').onclick = function () {
+        var IMP = window.IMP;
+        IMP.init('imp13765068');  // 아임포트 가맹점 아이디
+
+        IMP.request_pay({
+            pg: 'html5_inicis',
+            pay_method: 'card',
+            merchant_uid: 'order_' + new Date().getTime(),
+            name: '꽃가게 구독 서비스',
+            amount: 10000, // 예시 구독 금액
+            buyer_email: 'buyer@example.com',
+            buyer_name: '구매자 이름',
+            buyer_tel: '010-1234-5678',
+            buyer_addr: '서울시 강남구',
+            buyer_postcode: '123-456'
+        }, function (rsp) {
+            if (rsp.success) {
+                alert('결제 성공');
+                // 결제 성공 후 서버에 결과를 보내 처리
+                window.location.href = '/payment/verify/' + rsp.imp_uid;
+            } else {
+                alert('결제 실패');
+            }
+        });
+    };
+</script>
+</body>
+</html>

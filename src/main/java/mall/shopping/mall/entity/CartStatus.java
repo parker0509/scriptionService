@@ -1,4 +1,4 @@
-package mall.shopping.mall.domain;
+package mall.shopping.mall.entity;
 
 public enum CartStatus {
 

@@ -1,6 +1,6 @@
 package mall.shopping.mall.repository;
 
-import mall.shopping.mall.domain.OrderItem;
+import mall.shopping.mall.entity.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

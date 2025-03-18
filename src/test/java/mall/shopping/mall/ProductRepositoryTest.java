@@ -1,7 +1,7 @@
 package mall.shopping.mall;
 
 
-import mall.shopping.mall.domain.Product;
+import mall.shopping.mall.entity.Product;
 import mall.shopping.mall.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

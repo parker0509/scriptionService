@@ -3,10 +3,9 @@ package mall.shopping.mall.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import mall.shopping.mall.domain.User;
+import mall.shopping.mall.entity.User;
 import mall.shopping.mall.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

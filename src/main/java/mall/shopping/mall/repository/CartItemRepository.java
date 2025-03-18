@@ -1,11 +1,9 @@
 package mall.shopping.mall.repository;
 
-import mall.shopping.mall.domain.Cart;
-import mall.shopping.mall.domain.CartItem;
-import mall.shopping.mall.domain.Product;
+import mall.shopping.mall.entity.Cart;
+import mall.shopping.mall.entity.CartItem;
+import mall.shopping.mall.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 

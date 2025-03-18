@@ -2,9 +2,7 @@ package mall.shopping.mall.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpSession;
-import mall.shopping.mall.domain.Cart;
-import mall.shopping.mall.domain.Product;
+import mall.shopping.mall.entity.Product;
 import mall.shopping.mall.service.cart.CartService;
 import mall.shopping.mall.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

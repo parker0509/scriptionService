@@ -1,4 +1,4 @@
-package mall.shopping.mall.domain;
+package mall.shopping.mall.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -6,9 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Entity

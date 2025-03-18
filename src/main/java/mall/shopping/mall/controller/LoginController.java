@@ -1,7 +1,7 @@
 package mall.shopping.mall.controller;
 
 import jakarta.servlet.http.HttpSession;
-import mall.shopping.mall.domain.User;
+import mall.shopping.mall.entity.User;
 import mall.shopping.mall.repository.UserRepository;
 import mall.shopping.mall.service.login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;

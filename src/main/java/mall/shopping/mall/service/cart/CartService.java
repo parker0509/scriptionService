@@ -1,16 +1,15 @@
 package mall.shopping.mall.service.cart;
 
-import mall.shopping.mall.domain.Cart;
-import mall.shopping.mall.domain.CartItem;
-import mall.shopping.mall.domain.Product;
-import mall.shopping.mall.domain.User;
+import mall.shopping.mall.entity.Cart;
+import mall.shopping.mall.entity.CartItem;
+import mall.shopping.mall.entity.Product;
+import mall.shopping.mall.entity.User;
 import mall.shopping.mall.repository.CartItemRepository;
 import mall.shopping.mall.repository.CartRepository;
 import mall.shopping.mall.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.text.DecimalFormat;
 import java.util.Optional;

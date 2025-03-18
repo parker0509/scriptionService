@@ -1,6 +1,6 @@
 package mall.shopping.mall.service.user;
 
-import mall.shopping.mall.domain.User;
+import mall.shopping.mall.entity.User;
 import mall.shopping.mall.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

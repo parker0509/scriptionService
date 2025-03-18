@@ -1,9 +1,7 @@
-package mall.shopping.mall.domain;
+package mall.shopping.mall.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.List;
 
 @Entity
 @Data

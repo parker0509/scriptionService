@@ -1,7 +1,6 @@
-package mall.shopping.mall.domain;
+package mall.shopping.mall.entity;
 
 import jakarta.persistence.*;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;

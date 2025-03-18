@@ -2,12 +2,9 @@ package mall.shopping.mall.controller;
 
 
 import jakarta.servlet.http.HttpSession;
-import mall.shopping.mall.domain.Cart;
-import mall.shopping.mall.domain.CartItem;
-import mall.shopping.mall.domain.Product;
-import mall.shopping.mall.domain.User;
-import mall.shopping.mall.repository.CartRepository;
-import mall.shopping.mall.repository.ProductRepository;
+import mall.shopping.mall.entity.Cart;
+import mall.shopping.mall.entity.Product;
+import mall.shopping.mall.entity.User;
 import mall.shopping.mall.service.cart.CartService;
 import mall.shopping.mall.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DecimalFormat;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/cart")

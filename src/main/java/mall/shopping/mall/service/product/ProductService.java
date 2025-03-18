@@ -1,6 +1,6 @@
 package mall.shopping.mall.service.product;
 
-import mall.shopping.mall.domain.Product;
+import mall.shopping.mall.entity.Product;
 import mall.shopping.mall.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
