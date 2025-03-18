@@ -2,9 +2,13 @@ package mall.shopping.mall.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Data
+@Getter
+@Setter
 public class User {
 
     @Id
@@ -15,6 +19,13 @@ public class User {
     private String password;
     private String email;
 
+    // level 로 구독 서비스 구분 !
+    // level
+    //      1 -> Free
+    //      2 -> subscription
+    //      3 -> VIP SUB
+    @Enumerated(EnumType.STRING)
+    private SubscriptionLevel subscriptionLevel;
 
 
 }
