@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>결제 시스템</title>
+    <title>꽃가게 구독 서비스</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -38,18 +38,25 @@
             color: #666;
         }
 
-        #paymentBtn {
+        .subscription-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .subscription-options button {
             background-color: #2d87f0;
             color: white;
-            font-size: 18px;
-            padding: 12px 24px;
+            font-size: 16px;
+            padding: 10px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
-        #paymentBtn:hover {
+        .subscription-options button:hover {
             background-color: #1f70c3;
         }
 
@@ -62,23 +69,29 @@
 </head>
 <body>
 <div class="container">
-    <h1>꽃가게 구독 서비스</h1>
+    <h1>구독 서비스</h1>
     <p class="description">
-        이제 꽃을 구독하고 집에서도 손쉽게 꽃을 받으세요. 매달 새로운 꽃을 만나보실 수 있습니다!
+        원하는 구독 레벨을 선택하세요! 매달 새로운 쿠폰 만나보실 수 있습니다.
     </p>
-    <button id="paymentBtn">구독 결제하기</button>
+
+    <div class="subscription-options">
+        <button onclick="location.href='/login'"> 😺 Level 1 - Free</button>
+        <button onclick="startPayment(2, 1000)"> 😸 Level 2 - 1,000원</button>
+        <button onclick="startPayment(3, 5000)"> 😻 Level 3 - 5,000원</button>
+    </div>
+
     <div class="footer">
-        <p>© 2025 꽃가게 구독 서비스</p>
+        <p>© 2025 구독 서비스</p>
     </div>
 </div>
 
-<!-- 먼저 jQuery 로드 -->
+<!-- jQuery 로드 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- 그 다음에 아임포트 스크립트 로드 -->
+<!-- 아임포트 스크립트 로드 -->
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.0.js"></script>
 
 <script type="text/javascript">
-    document.getElementById('paymentBtn').onclick = function () {
+    function startPayment(level, amount) {
         var IMP = window.IMP;
         IMP.init('imp13765068');  // 아임포트 가맹점 아이디
 
@@ -86,8 +99,8 @@
             pg: 'html5_inicis',
             pay_method: 'card',
             merchant_uid: 'order_' + new Date().getTime(),
-            name: '꽃가게 구독 서비스',
-            amount: 10000, // 예시 구독 금액
+            name: `꽃가게 구독 서비스 - Level ${level}`,
+            amount: amount, // 선택한 레벨의 금액
             buyer_email: 'buyer@example.com',
             buyer_name: '구매자 이름',
             buyer_tel: '010-1234-5678',
@@ -95,14 +108,14 @@
             buyer_postcode: '123-456'
         }, function (rsp) {
             if (rsp.success) {
-                alert('결제 성공');
-                // 결제 성공 후 서버에 결과를 보내 처리
-                window.location.href = '/payment/verify/' + rsp.imp_uid;
+                alert(`Level ${level} 구독 결제 성공`);
+                // 서버에 결제 성공 정보 전송
+                window.location.href = `/payment/verify/${rsp.imp_uid}?level=${level}`;
             } else {
                 alert('결제 실패');
             }
         });
-    };
+    }
 </script>
 </body>
 </html>

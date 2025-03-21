@@ -1,5 +1,7 @@
 package mall.shopping.mall.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import mall.shopping.mall.entity.User;
 import mall.shopping.mall.repository.UserRepository;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/api/login")
 public class LoginController {
 
     private final UserRepository userRepository;
@@ -23,7 +26,7 @@ public class LoginController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/login")
+    @GetMapping
     public String getLoginPage(){
         return "login";
     }
@@ -36,22 +39,17 @@ public class LoginController {
              : 로그인 실패 후 로직 구현
     */
 
-    @PostMapping("/login")
-    @ResponseBody
-    public String postLoginPage(HttpSession httpSession, @RequestParam("email") String email,@RequestParam("password") String password){
-
-
+    @PostMapping("/auth")
+    public String postLoginPage(HttpSession httpSession, @RequestParam("email") String email, @RequestParam("password") String password) {
         try {
             // 로그인 서비스 호출
             User user = loginService.loginUserService(email, password, httpSession);
 
-            System.out.println("http Session: "+httpSession);
-            // 로그인 성공 시 처리
-            return "login-success";
-
+            // 로그인 성공 시 리다이렉션
+            return "redirect:/";  // 로그인 후 홈 페이지로 리다이렉션
         } catch (IllegalArgumentException e) {
             // 로그인 실패 시 처리
-            return e.getMessage(); // 예외 메시지 반환 (아이디 또는 비밀번호 오류)
+            return "login";  // 로그인 페이지로 돌아감
         }
     }
 

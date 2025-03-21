@@ -53,7 +53,8 @@ public class UserService {
     }
 
     //Read ( 읽기 )
-    public List<User> readUser(User user) {
+    public List<User> readUser(User userId) {
+
         return userRepository.findAll();
     }
 

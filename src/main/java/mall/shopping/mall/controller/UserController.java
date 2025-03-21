@@ -25,6 +25,8 @@ public class UserController {
         this.userService = userService;
     }
 
+
+    // 회원가입 폼 이동
     @GetMapping
     public String joinForm(Model model){
 
@@ -34,10 +36,10 @@ public class UserController {
     }
 
 
+    //회원가입
     @PostMapping
     @Operation(summary = "회원가입")
     public String joinUser(@ModelAttribute User user){
-
 
         userService.createUser(user);
 
