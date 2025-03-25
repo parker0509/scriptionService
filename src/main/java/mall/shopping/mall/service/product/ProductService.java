@@ -33,21 +33,16 @@ public class ProductService {
     }
 
     //Update
-    public void updateProduct(Long id, Product productDetails){
+    public Product updateProduct(Long id, Product updatedProduct) {
 
-        Optional<Product> optionalProduct = productRepository.findById(id);
-
-        if(optionalProduct.isPresent()){
-            Product product = optionalProduct.get();
-            product.setName(productDetails.getName());
-            product.setDescription(productDetails.getDescription());
-            product.setPrice(productDetails.getPrice());
-            product.setStockQuantity(productDetails.getStockQuantity());
-            product.setImageUrl(productDetails.getImageUrl());
-            productRepository.save(product);
-        }
-
+       Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+        product.setName(updatedProduct.getName());
+        product.setPrice(updatedProduct.getPrice());
+        product.setDescription(updatedProduct.getDescription());
+        return productRepository.save(product);
     }
+
     //Delete
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);

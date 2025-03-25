@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.DecimalFormat;
 
 @Controller
-@RequestMapping("/cart")
+@RequestMapping("/api/cart")
 public class CartController {
 
     @Autowired

@@ -1,97 +1,77 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>꽃가게 구독 서비스</title>
+    <title>상품 구독 서비스</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.0.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f7fc;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            padding: 20px;
         }
-
         .container {
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
+            max-width: 800px;
+            margin: auto;
         }
-
-        h1 {
-            font-size: 24px;
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
             margin-bottom: 20px;
-            color: #333;
-        }
-
-        .description {
-            font-size: 16px;
-            margin-bottom: 30px;
-            color: #666;
-        }
-
-        .subscription-options {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
+            align-items: center;
+            justify-content: space-between;
         }
-
-        .subscription-options button {
+        .product-info {
+            flex-grow: 1;
+        }
+        .product-card img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        .subscribe-btn {
             background-color: #2d87f0;
             color: white;
-            font-size: 16px;
-            padding: 10px;
             border: none;
+            padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: 0.3s;
         }
-
-        .subscription-options button:hover {
+        .subscribe-btn:hover {
             background-color: #1f70c3;
-        }
-
-        .footer {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #999;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>구독 서비스</h1>
-    <p class="description">
-        원하는 구독 레벨을 선택하세요! 매달 새로운 쿠폰 만나보실 수 있습니다.
-    </p>
+    <h1>상품 구독 서비스</h1>
+    <p>원하는 상품을 구독하세요!</p>
 
-    <div class="subscription-options">
-        <button onclick="location.href='/login'"> 😺 Level 1 - Free</button>
-        <button onclick="startPayment(2, 1000)"> 😸 Level 2 - 1,000원</button>
-        <button onclick="startPayment(3, 5000)"> 😻 Level 3 - 5,000원</button>
-    </div>
-
-    <div class="footer">
-        <p>© 2025 구독 서비스</p>
+    <div class="product-list" id="productContainer">
+        <div th:each="product : ${products}" class="product-card">
+            <img th:src="@{${product.imageUrl}}" alt="상품 이미지">
+            <div class="product-info">
+                <h5 th:text="${product.name}">상품 이름</h5>
+                <p th:text="${product.description}">상품 설명</p>
+                <p><strong th:text="${product.price} + ' 원'">가격</strong></p>
+            </div>
+            <button class="subscribe-btn" th:attr="data-name=${product.name}, data-price=${product.price}" onclick="startPayment(this)">구독하기</button>
+        </div>
     </div>
 </div>
 
-<!-- jQuery 로드 -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- 아임포트 스크립트 로드 -->
-<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.0.js"></script>
-
-<script type="text/javascript">
-    function startPayment(level, amount) {
+<script>
+    function startPayment(button) {
+        var productName = button.getAttribute('data-name');
+        var productPrice = button.getAttribute('data-price');
         var IMP = window.IMP;
         IMP.init('imp13765068');  // 아임포트 가맹점 아이디
 
@@ -99,8 +79,8 @@
             pg: 'html5_inicis',
             pay_method: 'card',
             merchant_uid: 'order_' + new Date().getTime(),
-            name: `꽃가게 구독 서비스 - Level ${level}`,
-            amount: amount, // 선택한 레벨의 금액
+            name: productName + ' 구독',
+            amount: productPrice,
             buyer_email: 'buyer@example.com',
             buyer_name: '구매자 이름',
             buyer_tel: '010-1234-5678',
@@ -108,9 +88,8 @@
             buyer_postcode: '123-456'
         }, function (rsp) {
             if (rsp.success) {
-                alert(`Level ${level} 구독 결제 성공`);
-                // 서버에 결제 성공 정보 전송
-                window.location.href = `/payment/verify/${rsp.imp_uid}?level=${level}`;
+                alert(productName + ' 구독 결제 성공');
+                window.location.href = `/payment/verify/${rsp.imp_uid}?product=${productName}`;
             } else {
                 alert('결제 실패');
             }

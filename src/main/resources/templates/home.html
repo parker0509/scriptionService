@@ -1,231 +1,104 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Renew</title>
+    <title>SuppleMatch</title>
 
     <!-- Google Fonts -->
-    <link href="https://fon3ts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@500;600&display=swap"
-          rel="stylesheet">
-
-    <!-- Font Awesome for Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        /* 기본 스타일 */
         body {
             font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f1f1f1; /* 밝은 회색 배경 */
+            background-color: #f8f9fa;
             color: #333;
         }
-
-        .navbar {
-            background-color: #FFFFFF; /* 흰색 */
-        }
-
         .navbar-brand {
-            color: black !important;
+            color: #000 !important; /* 검정색으로 설정 */
             font-family: 'Montserrat', sans-serif;
             font-size: 1.8rem;
             font-weight: 700;
+            margin-right: 100px; /* 오른쪽에 여백 추가 */
+        }
+        .navbar-nav {
+            display: flex;
+            justify-content: flex-start;  /* 왼쪽 정렬 */
+            gap: 20px;  /* 아이템 사이 간격 */
+            white-space: nowrap;
+
         }
 
+        .nav-item {
+            padding: 0 8px;  /* 항목 간 여백 추가 */
+            margin-left: 30px;
+        }
         .navbar-nav .nav-link {
-            color: black !important;
-            font-weight: 500;
+            color: #333; /* 원하는 글씨 색 (예: 검정색) */
+            font-weight: 550;
+            font-size: 1.1rem;
             transition: color 0.3s ease;
         }
 
         .navbar-nav .nav-link:hover {
-            color: #aaa !important; /* 회색 톤으로 변경 */
+            color: #555; /* 호버 시 색상 변경 */
         }
 
-        /* Hero Section */
         .hero {
-            position: relative;
-            width: 100%;
-            height: 500px; /* 슬라이더 높이 */
-            overflow: hidden;
-            margin-bottom: 50px;
-        }
-
-        .hero .hero-images {
+            background-color: #2c2c2c;
+            //background: url('/homepage.jpg') center/cover no-repeat;
+            height: 400px;
             display: flex;
-            transition: transform 0.5s ease;
-        }
-
-        .hero img {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-            flex-shrink: 0; /* 이미지가 줄어들지 않도록 */
-        }
-
-        .hero .btn-primary {
-            background-color: #777; /* 회색 버튼 */
-            border-color: #777;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            border-radius: 20px;
-            transition: background-color 0.3s ease;
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .hero .btn-primary:hover {
-            background-color: #666; /* 버튼 호버 시 어두운 회색 */
-            border-color: #666;
-        }
-
-        /* 왼쪽/오른쪽 버튼 스타일 */
-        .hero .prev, .hero .next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            font-size: 2rem;
-            padding: 15px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .hero .prev {
-            left: 20px;
-        }
-
-        .hero .next {
-            right: 20px;
-        }
-
-        .hero .prev:hover, .hero .next:hover {
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        /* 카테고리 버튼 */
-        .category-buttons button {
-            font-size: 1.1rem;
-            margin: 0 15px;
-            padding: 10px 20px;
-            border-radius: 30px;
-            background-color: #777; /* 회색 버튼 */
-            border: none;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .category-buttons button:hover {
-            background-color: #666; /* 버튼 호버 시 어두운 회색 */
-        }
-
-        /* 푸터 스타일 */
-        .footer {
-            background-color: #FFFFFF; /* 다크 회색 푸터 */
-            color: black;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            padding: 30px 20px;
+            color: white;
         }
-
-        .footer a {
-            color: #aaa;
-            text-decoration: none;
+        .hero .btn {
+            background-color: #007bff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            border-radius: 30px;
         }
-
-        .footer a:hover {
-            color: #fff;
+        .product-card {
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
         }
-.product-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-    width: 250px; /* 카드의 너비 */
-    height: 500px; /* 카드의 높이 */
-    margin: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    cursor: pointer; /* 추가된 부분: 마우스 커서를 포인터로 변경 */
-}
-
-.product-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start; /* 아이템들이 왼쪽으로 정렬되어 간격이 좁아짐 */
-    gap: 10px; /* 간격을 약간 줄임 (상품 간의 간격 조정) */
-    margin-top: 20px; /* 컨테이너 상단 여백 추가 */
-}
-
-.product-card img {
-    width: 100%;
-    height: 300px; /* 이미지 높이를 줄임 */
-    object-fit: cover;
-    border-bottom: 1px solid #ddd;
-}
-
-.product-card .card-body {
-    padding: 10px; /* 카드 내용의 패딩을 줄임 */
-}
-
-.product-card .card-title {
-    font-size: 1rem; /* 제목 크기 줄임 */
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.product-card .card-text {
-    font-size: 0.9rem; /* 설명 글자 크기를 줄임 */
-    color: #555;
-    margin-bottom: 10px;
-}
-
-.product-card .card-text strong {
-    font-size: 1rem; /* 가격 크기를 약간 줄임 */
-    color: #333;
-}
-
-.product-card .btn {
-    background-color: #777;
-    border-color: #777;
-    padding: 8px 15px; /* 버튼 크기를 줄임 */
-    font-size: 1rem; /* 버튼 글씨 크기 줄임 */
-    border-radius: 20px;
-    transition: background-color 0.3s ease;
-    display: none;
-}
-
-.product-card .btn:hover {
-    background-color: #666;
-    border-color: #666;
-}
-
-
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a class="navbar-brand" href="/">Taily</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="/products/list">Products</a></li>
-                <li class="nav-item"><a class="nav-link" href="/cart">Cart</a></li>
-                <li class="nav-item"><a class="nav-link" href="/api/login">Login</a></li>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/api/calculator">탄단지 계산기</a></li>
+                <li class="nav-item"><a class="nav-link" href="/api/supplement">분석</a></li>
+                <li class="nav-item"><a class="nav-link" href="/bugs-improvement">버그 및 개선사항</a></li>
+                <li class="nav-item"><a class="nav-link" href="/api/products/list">비타민/건강보조식품</a></li>
+                <li class="nav-item"><a class="nav-link" href="/cart">장바구니</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register">회원가입</a></li>
+                <li class="nav-item"><a class="nav-link" href="/login">로그인</a></li>
             </ul>
         </div>
     </div>
@@ -233,29 +106,26 @@
 
 <!-- Hero Section -->
 <section class="hero">
-    <div class="hero-images" id="heroImages">
-        <img src="/homepage.jpg" alt="Image 1">
-        <img src="/homepage2.jpg" alt="Image 2">
-        <img src="/homepage3.jpg" alt="Image 3">
+    <div>
+        <h1>Find the Perfect Supplement for You</h1>
+        <p>Analyze your needs and get personalized recommendations.</p>
+        <a href="/api/supplement" class="btn btn-primary">Start Analysis</a>
     </div>
-    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-    <button class="next" onclick="moveSlide(1)">&#10095;</button>
-    <a href="/products" class="btn btn-primary">Shop Now</a>
 </section>
 
-<!-- 카테고리별 상품 -->
-<!-- Display Products -->
-<div class="container category-container">
-    <h2>Our Products</h2>
-    <div class="product-container" id="productContainer">
-        <!-- Loop through products and display each one -->
-        <div th:each="product : ${products}" class="product-card" data-category="all">
-            <img th:src="@{${product.imageUrl}}" alt="Product Image">
-            <div class="card-body">
-                <h5 class="card-title" th:text="${product.name}">Product Name</h5>
-                <p class="card-text" th:text="${product.description}">Product Description</p>
-                <p class="card-text"><strong th:text="${product.price}+ ' 원'">Price</strong></p>
-                <a th:href="@{/products/{id}(id=${product.id})}" class="btn btn-primary">View Product</a>
+<!-- Products Section -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Popular Supplements</h2>
+    <div class="row">
+        <div th:each="product : ${products}" class="col-md-3 mb-4">
+            <div class="card product-card">
+                <img th:src="@{${product.imageUrl}}" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${product.name}">Product Name</h5>
+                    <p class="card-text" th:text="${product.description}">Short Description</p>
+                    <p class="fw-bold" th:text="${product.price} + ' 원'">Price</p>
+                    <a th:href="@{/products/{id}(id=${product.id})}" class="btn btn-sm btn-primary">View Details</a>
+                </div>
             </div>
         </div>
     </div>
@@ -263,67 +133,12 @@
 
 <!-- Footer -->
 <footer class="footer">
-    <p>&copy; 2024 Renew. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a></p>
+    <p>&copy; 2024 SuppleMatch. All Rights Reserved.</p>
 </footer>
 
-<!-- Bootstrap JS and dependencies -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-<script>
-
-
-    let currentIndex = 0;
-    const images = document.querySelectorAll('.hero-images img');
-
-//
-    function filterProducts(category) {
-        let url = '/products';
-        if (category !== 'all') {
-            url += '?category=' + category;
-        }
-        window.location.href = url;
-    }
-
-
-    function moveSlide(direction) {
-        currentIndex += direction;
-        if (currentIndex < 0) {
-            currentIndex = images.length - 1; // 끝에서 첫 번째 이미지로 돌아감
-        } else if (currentIndex >= images.length) {
-            currentIndex = 0; // 첫 번째 이미지로 돌아감
-        }
-        // 각 이미지를 하나씩 보이게 슬라이드
-        document.getElementById('heroImages').style.transform = `translateX(-${currentIndex * 100}%)`;
-    }
-
-    // 카테고리별 상품 필터링
-    function filterProducts(category) {
-        const products = document.querySelectorAll('.product-card');
-        products.forEach(product => {
-            if (category === 'all') {
-                product.style.display = 'block';
-            } else {
-                if (product.getAttribute('data-category') === category) {
-                    product.style.display = 'block';
-                } else {
-                    product.style.display = 'none';
-                }
-            }
-        });
-    }
-
-
-        // 상품 카드 클릭 시 상세 페이지로 이동
-    const productCards = document.querySelectorAll('.product-card');
-
-    productCards.forEach(card => {
-        card.addEventListener('click', () => {
-            // 각 카드에 있는 상품 상세 페이지 링크를 찾아서 해당 링크로 이동
-            const productLink = card.querySelector('a').getAttribute('href');
-            window.location.href = productLink; // 해당 상품의 상세 페이지로 이동
-        });
-    });
-</script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
+

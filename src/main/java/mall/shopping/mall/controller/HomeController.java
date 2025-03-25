@@ -52,7 +52,9 @@ public class HomeController {
     }
 
     @GetMapping("/payment")
-    public String getPayment() {
-        return "payment";
+    public String showSubscriptionPage(Model model) {
+        List<Product> products = productService.getAllProduct(); // 예제 서비스 호출
+        model.addAttribute("products", products);
+        return "payment"; // HTML 파일 이름
     }
 }

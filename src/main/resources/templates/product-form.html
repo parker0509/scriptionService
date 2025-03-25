@@ -12,35 +12,38 @@
         </div>
         <div class="card-body">
             <!-- 상품 등록/수정 폼 -->
-            <form th:action="@{${product.id != null} ? '/products/edit/' + ${product.id} : '/products'}" th:object="${product}" method="post">
+            <form id="productForm">
+                <!-- Hidden input으로 ID 저장 (수정 시 사용) -->
+                <input type="hidden" id="productId" th:value="${product.id}">
+
                 <!-- 상품명 입력 -->
                 <div class="form-group">
                     <label for="name">Name:</label>
-                    <input type="text" th:field="*{name}" id="name" class="form-control" placeholder="Enter product name" required />
+                    <input type="text" id="name" class="form-control" placeholder="Enter product name" th:value="${product.name}" required />
                 </div>
 
                 <!-- 상품 설명 입력 -->
                 <div class="form-group">
                     <label for="description">Description:</label>
-                    <textarea name="description" th:field="*{description}" id="description" class="form-control" placeholder="Enter product description" required />
+                    <textarea id="description" class="form-control" placeholder="Enter product description" required>[[${product.description}]]</textarea>
                 </div>
 
                 <!-- 상품 가격 입력 -->
                 <div class="form-group">
                     <label for="price">Price:</label>
-                    <input type="number" th:field="*{price}" id="price" class="form-control" placeholder="Enter product price" required />
+                    <input type="number" id="price" class="form-control" placeholder="Enter product price" th:value="${product.price}" required />
                 </div>
 
                 <!-- 상품 재고 수량 입력 -->
                 <div class="form-group">
                     <label for="stockQuantity">Stock Quantity:</label>
-                    <input type="number" th:field="*{stockQuantity}" id="stockQuantity" class="form-control" placeholder="Enter stock quantity" required />
+                    <input type="number" id="stockQuantity" class="form-control" placeholder="Enter stock quantity" th:value="${product.stockQuantity}" required />
                 </div>
 
                 <!-- 이미지 URL 입력 -->
                 <div class="form-group">
                     <label for="imageUrl">Image URL:</label>
-                    <input type="text" th:field="*{imageUrl}" id="imageUrl" class="form-control" placeholder="Enter product image URL" />
+                    <input type="text" id="imageUrl" class="form-control" placeholder="Enter product image URL" th:value="${product.imageUrl}" />
                 </div>
 
                 <!-- 제출 버튼 -->
@@ -48,15 +51,54 @@
             </form>
         </div>
         <div class="card-footer">
-            <a href="/products" class="btn btn-secondary">Back to Product List</a>
+            <a href="/api/products" class="btn btn-secondary">Back to Product List</a>
         </div>
     </div>
 </div>
 
 <!-- 필요한 스크립트 추가 (부트스트랩과 JQuery) -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    document.getElementById("productForm").addEventListener("submit", function(event) {
+        event.preventDefault();  // 기본 폼 제출 방지
+
+        // 입력된 값 가져오기
+        const product = {
+            name: document.getElementById("name").value,
+            description: document.getElementById("description").value,
+            price: parseFloat(document.getElementById("price").value),
+            stockQuantity: parseInt(document.getElementById("stockQuantity").value),
+            imageUrl: document.getElementById("imageUrl").value
+        };
+
+        const productId = document.getElementById("productId").value;
+        const url = productId ? `/api/products/${productId}` : "/api/products";
+        const method = productId ? "PUT" : "POST";
+
+        // REST API 호출
+        fetch(url, {
+            method: method,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(product)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("상품이 성공적으로 저장되었습니다.");
+                window.location.href = "/products";  // 등록 후 목록 페이지로 이동
+            } else {
+                return response.json().then(err => {
+                    alert("오류 발생: " + (err.message || response.status));
+                });
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("네트워크 오류가 발생했습니다.");
+        });
+    });
+</script>
 
 </body>
 </html>
